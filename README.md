@@ -11,7 +11,7 @@ Raylander: 9, 3, 12
 
 Jean & Henrique: 16, 29, 30, 31
 
-Victor & Lucas: 8, 10
+Victor & Lucas: 8, 10, 51, 52
 
 Gabriel & Leticia: 15
 
