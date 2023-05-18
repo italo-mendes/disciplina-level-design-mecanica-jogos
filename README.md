@@ -5,13 +5,13 @@
 
 Diego & Adley: 6, 22
 
-André & Mateus: 7, 18, 35, 36
+André & Mateus: ✔7, 18, 35, 36
 
 Raylander: 9, 3, 12
 
 Jean & Henrique: 16, 29, 30, 31
 
-Victor & Lucas: 10
+Victor & Lucas: 8, 10
 
 Gabriel & Leticia: 15
 
