@@ -16,7 +16,7 @@ public class Inteligencia : MonoBehaviour
 
     }
 
-    public int getInteçigencia()
+    public int getInteligencia()
     {
         return inteligencia;
     }
