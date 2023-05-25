@@ -24,23 +24,23 @@ public class Mana : MonoBehaviour
 
     public void setMana(int valor)
     {
-        if (manaMaximo > 0)
+        if (mana > 0)
         {
-            if (valor >= 0 && valor <= manaMaximo)
+            if (valor >= 0 && valor <= mana)
             {
-                manaMaximo = valor;
+                mana = valor;
             }
         }
         else
         {
             if (valor >= 0)
             {
-                manaMaximo = valor;
+                mana = valor;
             }
         }
     }
     public int getMana()
     {
-        return manaMaximo;
+        return mana;
     }
 }
