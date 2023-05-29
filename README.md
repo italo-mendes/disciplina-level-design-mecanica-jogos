@@ -15,6 +15,6 @@ Victor & Lucas: 8, 10
 
 Gabriel & Leticia: 15, 17
 
-Alex & Ezequiel: 5, 55
+Alex & Ezequiel: 5, 33, 34
 
 Leimar: 26, 27, 28
