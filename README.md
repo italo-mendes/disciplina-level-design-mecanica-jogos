@@ -13,8 +13,8 @@ Jean & Henrique: 16, 29, 30, 31
 
 Victor & Lucas: 8, 10
 
-Gabriel & Leticia: 15
+Gabriel & Leticia: 15, 17
 
-Alex & Ezequiel: 5
+Alex & Ezequiel: 5, 55
 
 Leimar: 26, 27, 28
