@@ -23,7 +23,7 @@ public class DanoAoContato : MonoBehaviour
         {
             outro.gameObject.GetComponent<Vida>().SetVida(
                 outro.gameObject.GetComponent<Vida>().GetVida()
-                - curaComponent.SetDano()
+                - danoComponent.GetDano()
             );
 
             if (seDestroiNoContato)
