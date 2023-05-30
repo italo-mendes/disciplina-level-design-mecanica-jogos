@@ -11,10 +11,12 @@ public class AtirarEmArco : MonoBehaviour
     private float anguloDoCone;
     private float aleatoriedadeNaDirecao;
     private Quaternion rotacaoInicial;
+    private float metadeAnguloDoCone;
 
     void Start()
     {
         rotacaoInicial = transform.localRotation;
+        metadeAnguloDoCone = anguloDoCone / 2;
 
         StartCoroutine(Atira());
     }
@@ -23,7 +25,7 @@ public class AtirarEmArco : MonoBehaviour
     {
         while (true)
         {
-            aleatoriedadeNaDirecao = Random.Range(-(anguloDoCone/2),(anguloDoCone/2));
+            aleatoriedadeNaDirecao = Random.Range(-metadeAnguloDoCone, metadeAnguloDoCone);
             
             transform.Rotate(0.0f, aleatoriedadeNaDirecao, 0.0f, Space.Self);
             Instantiate(projetil, transform.position, transform.rotation);
