@@ -13,7 +13,7 @@ public class MovimentarParaFrenteTransf : MonoBehaviour
             print("Adicione o componente <color=orange>Velocidade</color> ao GameObject.");
     }
 
-    void FixedUpdate()
+    void Update()
     {
         transform.Translate(velocidadeComponent.GetVelocidade()
             * Time.deltaTime * transform.forward);
