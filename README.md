@@ -9,7 +9,7 @@ Diego & Adley: 6, 22
 
 André & Mateus: ✔7, 18, 35, 36, 48
 
-Raylander: ✔9, ✔3, 12
+Raylander: ✔9, ✔3, 12, 13, 14
 
 Jean & Henrique: ✔5, ✔16, 29, 30, 31
 
