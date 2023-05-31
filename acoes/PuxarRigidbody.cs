@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Puxar : MonoBehaviour
+public class PuxarRigidbody : MonoBehaviour
 {
     public string tagObjetoSeraPuxado;
     public float distancia;
