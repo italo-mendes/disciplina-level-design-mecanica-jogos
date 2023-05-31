@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovimentarParaFrenteAleatorioTransf : MonoBehaviour
 {
     [SerializeField]
-    private float velocidade;
+    private Velocidade velocidade;
     [SerializeField]
     private float tempoDeMovimentacao;
     [SerializeField]
@@ -15,6 +15,8 @@ public class MovimentarParaFrenteAleatorioTransf : MonoBehaviour
 
     void Start()
     {
+        if (!TryGetComponent<Velocidade>(out velocidade))
+            print("Adicione o componente <color=orange>Velocidade</color> ao GameObject.");
         StartCoroutine(Movimentar());
     }
 
@@ -25,7 +27,7 @@ public class MovimentarParaFrenteAleatorioTransf : MonoBehaviour
             float total = 0.0f;
             while (total <= tempoDeMovimentacao)
             {
-                transform.Translate(velocidade * Time.deltaTime * new Vector3(0.0f, 0.0f, 1.0f));
+                transform.Translate(velocidade.GetVelocidade() * Time.deltaTime * transform.forward);
                 total += Time.deltaTime;
 
                 yield return new WaitForEndOfFrame();
