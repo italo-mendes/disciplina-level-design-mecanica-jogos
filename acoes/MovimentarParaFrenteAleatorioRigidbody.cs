@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovimentarParaFrenteAleatorioRigidbody : MonoBehaviour
 {
     [SerializeField]
-    private float velocidade;
+    private Velocidade velocidade;
     [SerializeField]
     private float tempoDeMovimentacao;
     [SerializeField]
@@ -18,6 +18,8 @@ public class MovimentarParaFrenteAleatorioRigidbody : MonoBehaviour
 
     void Start()
     {
+        if (!TryGetComponent<Velocidade>(out velocidade))
+            print("Adicione o componente <color=orange>Velocidade</color> ao GameObject.");
         rb = GetComponent<Rigidbody>();
         movendo = false;
         
@@ -28,7 +30,9 @@ public class MovimentarParaFrenteAleatorioRigidbody : MonoBehaviour
     {
         if (movendo)
         {
-            rb.MovePosition(velocidade * Time.fixedDeltaTime * transform.forward + rb.position);
+            rb.MovePosition(
+                velocidade.GetVelocidade() * Time.fixedDeltaTime
+                * transform.forward + rb.position);
         }
         else
         {
