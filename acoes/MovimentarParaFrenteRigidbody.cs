@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class MovimentarParaFrente : MonoBehaviour
+public class MovimentarParaFrenteRigidbody : MonoBehaviour
 {
     private Rigidbody rb;
     private Velocidade velocidadeComponent;
