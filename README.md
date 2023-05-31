@@ -1,6 +1,8 @@
 
 [Lista dos componentes da Unity](https://italomendes.com.br/level-design-mecanica-para-jogos/)
 
+Componentes exemplos enviados pelo professor: 44, 45, 49, 52, 53, 55, 56, 57, 58, 59
+
 ### Duplas e seus componentes
 
 Diego & Adley: 6, 22
