@@ -22,7 +22,8 @@ public class AtirarEmArco : MonoBehaviour
     {
         while (true)
         {
-            transform.Rotate(0.0f, angulo / 2, 0.0f, Space.Self);
+            // 90, pois é a metade de 180 graus
+            transform.Rotate(0.0f, -(90 - (anglo / 2)), 0.0f, Space.Self);
             Instantiate(projetil, transform.position, transform.rotation);
 
             // for (int i = 2; i <= numeroDirecoes; i++)
