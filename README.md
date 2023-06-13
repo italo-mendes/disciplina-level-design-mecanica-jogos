@@ -20,4 +20,4 @@ Gabriel & Leticia: 15, 17, 46, 47, 48
 
 Alex & Ezequiel: 32, 33, 34, 43, 50
 
-Leimar: 26, 27, 28, 51, 52
+Leimar: ✔26, ✔27, ✔28, 51, 52
