@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MovimentarParaFrenteAleatorioTransf : MonoBehaviour
 {
-    [SerializeField]
     private Velocidade velocidade;
     [SerializeField]
     private float tempoDeMovimentacao;
@@ -17,6 +16,7 @@ public class MovimentarParaFrenteAleatorioTransf : MonoBehaviour
     {
         if (!TryGetComponent<Velocidade>(out velocidade))
             print("Adicione o componente <color=orange>Velocidade</color> ao GameObject.");
+            
         StartCoroutine(Movimentar());
     }
 
