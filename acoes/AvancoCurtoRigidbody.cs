@@ -7,7 +7,7 @@ using static UnityEditor.PlayerSettings;
 public class AvancoCurtoRigidbody : MonoBehaviour
 {
 
-    //AINDA NAO TERMINEI, S” ESTOU SAlVANDO PARA ATUALIZAR EM CASA
+    //Acho que agora est√° conclu√≠do
 
     [SerializeField]
     private float distanciaDoAvanco;
@@ -28,44 +28,45 @@ public class AvancoCurtoRigidbody : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        StartCoroutine(Avancar());
             
     }
 
-    void FixedUpdate()
+    IEnumerator Avancar()
     {
+        float dist = distanciaDoAvanco;
 
         if (!avancarNoEixoX & !avancarNoEixoY & !avancarNoEixoZ)
         {
-            print("Selecione ao menos um dos eixos para o qual o objeto avanÁar·");
+            print("Selecione ao menos um dos eixos para o qual o objeto avan√ßar√°");
         }
         else
         {
             if (avancarNoEixoX)
             {
-                eixosDeAvanco.x = 1.0f;
+                eixosDeAvanco.x = 0.25f;
             }
 
             if (avancarNoEixoY)
             {
-                eixosDeAvanco.y = 1.0f;
+                eixosDeAvanco.y = 0.25f;
             }
 
             if (avancarNoEixoZ)
             {
-                eixosDeAvanco.z = 1.0f;
+                eixosDeAvanco.z = 0.25f;
             }
 
-            while (distanciaDoAvanco > 0)
+            while (dist > 0)
             {
                 rb.MovePosition(transform.position + velocidadeDoAvanco
                     * Time.deltaTime * eixosDeAvanco);
 
-                distanciaDoAvanco -= Time.deltaTime * velocidadeDoAvanco;
+                dist -= Time.deltaTime * velocidadeDoAvanco;
+                yield return new WaitForSeconds(Time.deltaTime);
             }
         }
-
-        
-
     }
 
 }
