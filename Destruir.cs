@@ -5,8 +5,8 @@ using UnityEngine;
 public class Destruir : MonoBehaviour
 {
     public float delay; // Tempo em segundos até a destruição ocorrer
-    public bool autoDestruicao = false; // Indica se o GameObject se autodestrói
-    public Object objetoParaDestruir; // Variável do tipo Object para armazenar o GameObject ou componente
+    public bool autoDestruicao; // Indica se o GameObject se autodestrói
+    public GameObject objetoParaDestruir; // Variável do tipo Object para armazenar o GameObject ou componente
 
     void Start()
     {
