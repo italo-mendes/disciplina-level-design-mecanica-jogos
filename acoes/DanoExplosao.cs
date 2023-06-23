@@ -5,19 +5,17 @@ using UnityEngine;
 
 public class DanoExplosao : MonoBehaviour
 {
-
     /*
      * Quem vai receber o dano precisa ter os componentes:
      *  - Vida
-     *  - Box Collider
+     *  - Collider
      */
 
     public string tagDeQuemIraReceberDano;
     public int tempoDetonacao;
     public float raioDaExplosao;
-    public Dano dano;
+    private Dano dano;
 
-    // Start is called before the first frame update
     void Start()
     {
         if(!TryGetComponent<Dano>(out dano))
@@ -33,20 +31,17 @@ public class DanoExplosao : MonoBehaviour
 
         foreach (Collider objeto in objetosNoRaio)
         {
-            print("foreach");
             print(objeto.gameObject);
             if (objeto.gameObject.CompareTag(tagDeQuemIraReceberDano)){
                 objeto.gameObject.GetComponent<Vida>().SetVida(
                     objeto.gameObject.GetComponent<Vida>().GetVida()
                     - dano.GetDano()
                 );
-               
             }
-            print(objeto.gameObject.GetComponent<Vida>());
         }
     }
 
-    /**FunÁ„o para mostrar a esfera de colis„o*/
+    /**Fun√ß√£o para mostrar a esfera de colis√£o*/
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, raioDaExplosao);
