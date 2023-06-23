@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AvancoCurtoRigidbody2D : MonoBehaviour
 {
-
     [SerializeField]
     private float distanciaDoAvanco;
     [SerializeField]
@@ -26,7 +25,6 @@ public class AvancoCurtoRigidbody2D : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
 
         StartCoroutine(Avancar());
-            
     }
 
     IEnumerator Avancar()
@@ -41,17 +39,17 @@ public class AvancoCurtoRigidbody2D : MonoBehaviour
         {
             if (avancarNoEixoX)
             {
-                eixosDeAvanco.x = 0.25f;
+                eixosDeAvanco.x = 1.0f;
             }
 
             if (avancarNoEixoY)
             {
-                eixosDeAvanco.y = 0.25f;
+                eixosDeAvanco.y = 1.0f;
             }
 
             if (avancarNoEixoZ)
             {
-                eixosDeAvanco.z = 0.25f;
+                eixosDeAvanco.z = 1.0f;
             }
 
             while (dist > 0)
