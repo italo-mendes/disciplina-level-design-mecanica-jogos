@@ -6,9 +6,6 @@ using static UnityEditor.PlayerSettings;
 
 public class AvancoCurtoRigidbody : MonoBehaviour
 {
-
-    //Acho que agora está concluído
-
     [SerializeField]
     private float distanciaDoAvanco;
     [SerializeField]
@@ -30,7 +27,6 @@ public class AvancoCurtoRigidbody : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         StartCoroutine(Avancar());
-            
     }
 
     IEnumerator Avancar()
@@ -45,17 +41,17 @@ public class AvancoCurtoRigidbody : MonoBehaviour
         {
             if (avancarNoEixoX)
             {
-                eixosDeAvanco.x = 0.25f;
+                eixosDeAvanco.x = 1.0f;
             }
 
             if (avancarNoEixoY)
             {
-                eixosDeAvanco.y = 0.25f;
+                eixosDeAvanco.y = 1.0f;
             }
 
             if (avancarNoEixoZ)
             {
-                eixosDeAvanco.z = 0.25f;
+                eixosDeAvanco.z = 1.0f;
             }
 
             while (dist > 0)
