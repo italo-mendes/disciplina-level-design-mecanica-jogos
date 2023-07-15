@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class MovimentarParaAlvoTransf : MonoBehaviour
 {
-    public Transform transform;
-
+    public Transform alvo;
     private Velocidade velocidadeComponent;
 
-     void Start()
+    void Start()
     {
         if (!TryGetComponent<Velocidade>(out velocidadeComponent))
             print("Adicione o componente <color=orange>Velocidade</color> ao GameObject.");
@@ -16,9 +15,7 @@ public class MovimentarParaAlvoTransf : MonoBehaviour
 
     void Update()
     {
-        transform.LookAt(transform);
-        transform.Translate(
-            velocidadeComponent.GetVelocidade() * Time.deltaTime * transform.forward);
+        transform.position = Vector3.MoveTowards(
+            transform.position, alvo.position, velocidadeComponent.GetVelocidade() * Time.deltaTime);
     }
-
 }
