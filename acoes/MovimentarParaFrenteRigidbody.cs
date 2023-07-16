@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
@@ -18,7 +18,7 @@ public class MovimentarParaFrenteRigidbody : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(transform.position + velocidadeComponent.GetVelocidade() 
+        rb.MovePosition(transform.position + velocidadeComponent.GetVelocidade()
             * Time.deltaTime * transform.forward);
     }
 }
