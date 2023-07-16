@@ -15,20 +15,16 @@ public class Gerador : MonoBehaviour
 
     private IEnumerator GerarObjetos()
     {
-        while (quantidade == 0 || quantidade > 0)
+        while (quantidade > 0)
         {
             Instantiate(prefab, transform.position, transform.rotation);
 
-            if (quantidade > 0)
-                quantidade--;
-
-            if (quantidade == 0 && seraDestruido)
-            {
-                Destroy(gameObject);
-                yield break;
-            }
+            quantidade--;
 
             yield return new WaitForSeconds(intervaloDeTempo);
         }
+
+        if (seraDestruido)
+            Destroy(gameObject);
     }
 }
