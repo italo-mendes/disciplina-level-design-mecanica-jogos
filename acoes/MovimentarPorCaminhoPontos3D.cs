@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class MovimentarPorCaminhoPontosRigidbody : MonoBehaviour
 {
-    public float velocidade = 5f;
     public Transform[] pontosCaminho;
-    public bool reinicia = false;
+    public bool reinicia;
 
-    private int indicePontoAtual = 0;
+    private int indicePontoAtual;
     private Rigidbody rb;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Velocidade velocidade = new Velocidade();
+        indicePontoAtual = 0;
     }
 
     private void FixedUpdate()
@@ -22,7 +23,7 @@ public class MovimentarPorCaminhoPontosRigidbody : MonoBehaviour
         Vector3 direcao = pontosCaminho[indicePontoAtual].position - transform.position;
         direcao.Normalize();
 
-        rb.MovePosition(transform.position + direcao * velocidade * Time.fixedDeltaTime);
+        rb.MovePosition(transform.position + direcao * velocidade.GetVelocidade() * Time.fixedDeltaTime);
 
         if (Vector3.Distance(transform.position, pontosCaminho[indicePontoAtual].position) < 0.1f)
         {
