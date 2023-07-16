@@ -25,7 +25,7 @@ public class MovimentarPorCaminhoPontosRigidbody : MonoBehaviour
 
         rb.MovePosition(transform.position + direcao * velocidade.GetVelocidade() * Time.fixedDeltaTime);
 
-        if (Vector3.Distance(transform.position, pontosCaminho[indicePontoAtual].position) < 0.1f)
+        if (Vector3.Distance(transform.position, pontosCaminho[indicePontoAtual].position) < 0.3f)
         {
             indicePontoAtual++;
 
