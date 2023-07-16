@@ -7,10 +7,6 @@ public class FocarEmAlvo : MonoBehaviour
     private void Update()
     {
         if (alvo)
-        {
             transform.LookAt(alvo, Vector3.up);
-            Vector3 direcao = alvo.position - transform.position;
-            transform.rotation = Quaternion.LookRotation(direcao, Vector3.up);
-        }
     }
 }
