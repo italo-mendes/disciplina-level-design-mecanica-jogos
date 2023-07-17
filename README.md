@@ -8,7 +8,7 @@ Componentes exemplos enviados pelo professor:
 
 Diego & Adley: 6, 22, 20, 40, 41, 42
 
-André & Matheus: ✔7, ✔18, ✔19, 35, 36
+André & Matheus: ✔7, ✔18, ✔19, ✔35, ✔36
 
 Raylander: ✔9, ✔3, ✔12, ✔13, ✔14
 
