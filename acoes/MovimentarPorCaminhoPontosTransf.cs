@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MovimentarPorCaminhoPontosTransf : MonoBehaviour
 {
-    public float velocidade;
     public List<Transform> pontosDoCaminho;
     public bool reinicia = false;
 
@@ -15,6 +14,7 @@ public class MovimentarPorCaminhoPontosTransf : MonoBehaviour
     {
         alvoAtual = pontosDoCaminho[indiceAtual];
         indiceAtual = 0;
+        Velocidade velocidade = new Velocidade();
     }
 
     void Update()
@@ -46,7 +46,7 @@ public class MovimentarPorCaminhoPontosTransf : MonoBehaviour
         }
 
         // Movimenta o GameObject em direção ao alvo atual
-        transform.position = Vector3.MoveTowards(transform.position, alvoAtual.position, velocidade * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, alvoAtual.position, velocidade.GetVelocidade() * Time.deltaTime);
 
         // Rotaciona o GameObject para olhar na direção do movimento
         transform.LookAt(alvoAtual);
