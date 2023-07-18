@@ -6,6 +6,7 @@ public class MovimentarPorCaminhoPontosTransf : MonoBehaviour
 {
     public List<Transform> pontosDoCaminho;
     public bool reinicia = false;
+    private Velocidade velocidade;
 
     private int indiceAtual;
     private Transform alvoAtual;
@@ -14,7 +15,8 @@ public class MovimentarPorCaminhoPontosTransf : MonoBehaviour
     {
         alvoAtual = pontosDoCaminho[indiceAtual];
         indiceAtual = 0;
-        Velocidade velocidade = new Velocidade();
+        if (!TryGetComponent<Velocidade>(out velocidade))
+            print("Adicione o componente <color=orange>Velocidade</color> ao GameObject.");
     }
 
     void Update()
