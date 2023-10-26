@@ -7,6 +7,8 @@ public class AtirarEmArcoConcentrado : MonoBehaviour
     public GameObject projetil;
     public int numeroDirecoes;
     public float tempoEntreDisparos;
+    public float tempoMinimoAntesComecarAtirar;
+    public float tempoMaximoAntesComecarAtirar;
     public float anguloEntreDirecoes;
     private float angulo;
     private float anguloTotal;
@@ -18,25 +20,33 @@ public class AtirarEmArcoConcentrado : MonoBehaviour
         angulo = anguloTotal / numeroDirecoes;
         rotacaoInicial = transform.localRotation;
 
-        StartCoroutine(Atira());
+        StartCoroutine(AtiraContinuamente());
     }
 
-    IEnumerator Atira()
+    IEnumerator AtiraContinuamente()
     {
+        yield return new WaitForSeconds(
+            Random.Range(tempoMinimoAntesComecarAtirar, tempoMaximoAntesComecarAtirar));
+
         while (true)
         {
-            transform.Rotate(0.0f, -((anguloTotal/2) - (angulo / 2)), 0.0f, Space.Self);
-            Instantiate(projetil, transform.position, transform.rotation);
-
-            for (int i = 1; i <= numeroDirecoes - 1; i++)
-            {
-                transform.Rotate(0.0f, anguloEntreDirecoes, 0.0f, Space.Self);
-                Instantiate(projetil, transform.position, transform.rotation);
-            }
-
-            transform.localRotation = rotacaoInicial;
+            Atira();
 
             yield return new WaitForSeconds(tempoEntreDisparos);
         }
+    }
+
+    public void Atira()
+    {
+        transform.Rotate(0.0f, 0.0f, -((anguloTotal / 2) - (angulo / 2)), Space.Self);
+        Instantiate(projetil, transform.position, transform.rotation);
+
+        for (int i = 1; i <= numeroDirecoes - 1; i++)
+        {
+            transform.Rotate(0.0f, 0.0f, angulo, Space.Self);
+            Instantiate(projetil, transform.position, transform.rotation);
+        }
+
+        transform.localRotation = rotacaoInicial;
     }
 }
