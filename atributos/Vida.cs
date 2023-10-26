@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Vida : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class Vida : MonoBehaviour
     // se VidaMaxima for zero, então o gameObject não terá vidaMaxima
     [SerializeField]
     private int vidaMaxima;
+
+    public bool semVidaSeDestroi;
+    public float tempoAntesDestruicao;
+    public UnityEvent eventosAntesDestruicao;
 
     public int GetVida()
     {
@@ -32,6 +37,15 @@ public class Vida : MonoBehaviour
             }
         else
             vida = 0;
+
+        
+        if (vida <= 0)
+        {
+            eventosAntesDestruicao.Invoke();
+
+            if (semVidaSeDestroi)
+                Destroy(gameObject, tempoAntesDestruicao);
+        }
     }
 
     public int GetVidaMaxima()
