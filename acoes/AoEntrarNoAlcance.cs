@@ -12,17 +12,13 @@ public class AoEntrarNoAlcance : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag(tagDoObjetoQueEntrarEmContato))
-        {
             evento.Invoke();
-        }
     }
 
     /**Código feito para 3d*/
-    /**private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(tagDoObjetoQueEntrarEmContato))
-        {
             evento.Invoke();
-        }
-    }*/
+    }
 }
