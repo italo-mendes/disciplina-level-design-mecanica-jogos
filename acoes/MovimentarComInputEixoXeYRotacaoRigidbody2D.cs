@@ -46,8 +46,7 @@ public class MovimentarComInputEixoXeYRotacaoRigidbody2D : MonoBehaviour
 
         if (posTemp.x > limiteXMinimo && posTemp.x < limiteXMaximo &&
             posTemp.y > limiteYMinimo && posTemp.y < limiteYMaximo)
-                rb2D.MovePosition(transform.position + velocidadeComponent.GetVelocidade()
-                    * Time.fixedDeltaTime * entrada.y * transform.up);
+                rb2D.MovePosition(posTemp);
 
         transform.Rotate(0.0f, 0.0f, entrada.x * Time.fixedDeltaTime * -velocidadeRotacao);
     }

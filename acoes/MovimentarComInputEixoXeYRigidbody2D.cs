@@ -55,8 +55,7 @@ public class MovimentarComInputEixoXeYRigidbody2D : MonoBehaviour
 
         if (posTemp.x > limiteXMinimo && posTemp.x < limiteXMaximo &&
             posTemp.y > limiteYMinimo && posTemp.y < limiteYMaximo)
-                rb2D.MovePosition(transform.position + velocidadeComponent.GetVelocidade()
-                    * Time.fixedDeltaTime * new Vector3(entrada.x, entrada.y, 0.0f));
+                rb2D.MovePosition(posTemp);
     }
 
     IEnumerator ObtemEntradaEixos()

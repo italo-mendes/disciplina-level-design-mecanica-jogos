@@ -49,4 +49,22 @@ public class AtirarEmArco : MonoBehaviour
 
         transform.localRotation = rotacaoInicial;
     }
+
+    public void SetProjetil(GameObject proj)
+    {
+        projetil = proj;
+    }
+
+    public void SetNumeroDirecoes(int numDir)
+    {
+        numeroDirecoes = numDir;
+    }
+
+    public void VariacaoNumeroDirecoes(int variacao)
+    {
+        numeroDirecoes += variacao;
+
+        if (numeroDirecoes <= 0)
+            numeroDirecoes = 1;
+    }
 }

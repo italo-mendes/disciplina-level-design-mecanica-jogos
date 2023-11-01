@@ -19,28 +19,34 @@ public class DanoAoContato : MonoBehaviour
     void OnCollisionEnter(Collision outro)
     {
         if (outro.gameObject.CompareTag(outroTag))
-        {
-            outro.gameObject.GetComponent<Vida>().SetVida(
-                outro.gameObject.GetComponent<Vida>().GetVida()
-                - danoComponent.GetDano()
-            );
-
-            if (seDestroiNoContato)
-                Destroy(gameObject);
-        }
+            Verificacoes(outro.gameObject);
     }
 
     void OnTriggerEnter(Collider outro)
     {
         if (outro.gameObject.CompareTag(outroTag))
-        {
-            outro.gameObject.GetComponent<Vida>().SetVida(
-                outro.gameObject.GetComponent<Vida>().GetVida()
-                - danoComponent.GetDano()
-            );
+            Verificacoes(outro.gameObject);
+    }
 
-            if (seDestroiNoContato)
-                Destroy(gameObject);
-        }
+    void OnCollisionEnter2D(Collision2D outro)
+    {
+        if (outro.gameObject.CompareTag(outroTag))
+            Verificacoes(outro.gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D outro)
+    {
+        if (outro.gameObject.CompareTag(outroTag))
+            Verificacoes(outro.gameObject);
+    }
+
+    void Verificacoes(GameObject go)
+    {
+        go.GetComponent<Vida>().SetVida(
+            go.GetComponent<Vida>().GetVida() - danoComponent.GetDano()
+        );
+
+        if (seDestroiNoContato)
+            Destroy(gameObject);
     }
 }
