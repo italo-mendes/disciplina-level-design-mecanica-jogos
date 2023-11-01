@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MovimentarComInputEixoXRigidbody : MonoBehaviour
+public class MovimentarComInputEixoXeZRotacaoRigidbody : MonoBehaviour
 {
     public Vector2 entrada;
+    public float velocidadeRotacao;
+    public float limiteXMinimo;
+    public float limiteXMaximo;
+    public float limiteZMinimo;
+    public float limiteZMaximo;
     private Velocidade velocidadeComponent;
     private Animator animator;
     public string nomeParametroVelocidade;
     private Rigidbody rb;
     private PlayerInput pi;
+    private Vector3 posTemp;
 
     void Start()
     {
@@ -31,17 +37,18 @@ public class MovimentarComInputEixoXRigidbody : MonoBehaviour
 
         if (animator != null)
             animator.SetFloat(nomeParametroVelocidade, Mathf.Abs(entrada.x));
-
-        if (entrada.x < 0)
-            transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
-        else if (entrada.x > 0)
-            transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(transform.position + velocidadeComponent.GetVelocidade()
-            * Mathf.Abs(entrada.x) * Time.fixedDeltaTime * transform.right);
+        posTemp = transform.position + velocidadeComponent.GetVelocidade()
+            * Time.fixedDeltaTime * entrada.y * transform.forward;
+
+        if (posTemp.x > limiteXMinimo && posTemp.x < limiteXMaximo &&
+            posTemp.z > limiteZMinimo && posTemp.z < limiteZMaximo)
+            rb.MovePosition(posTemp);
+
+        transform.Rotate(0.0f, entrada.x * Time.fixedDeltaTime * -velocidadeRotacao, 0.0f);
     }
 
     IEnumerator ObtemEntradaEixos()
@@ -49,14 +56,10 @@ public class MovimentarComInputEixoXRigidbody : MonoBehaviour
         while (true)
         {
             entrada.x = Input.GetAxisRaw("Horizontal");
+            entrada.y = Input.GetAxisRaw("Vertical");
 
             if (animator != null)
                 animator.SetFloat(nomeParametroVelocidade, Mathf.Abs(entrada.x));
-
-            if (entrada.x < 0)
-                transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
-            else if (entrada.x > 0)
-                transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
             yield return new WaitForEndOfFrame();
         }

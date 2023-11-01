@@ -1,24 +1,12 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class AvancoCurtoRigidbody : MonoBehaviour
 {
-    [SerializeField]
-    private float distanciaDoAvanco;
-    [SerializeField]
-    private float velocidadeDoAvanco;
-
-    private Vector3 eixosDeAvanco;
-
-    [SerializeField]
-    private Boolean avancarNoEixoX;
-    [SerializeField]
-    private Boolean avancarNoEixoY;
-    [SerializeField]
-    private Boolean avancarNoEixoZ;
+    public float distanciaDoAvanco;
+    public float velocidadeDoAvanco;
+    public Vector3 direcaoDeAvanco;
 
     private Rigidbody rb;
 
@@ -29,40 +17,17 @@ public class AvancoCurtoRigidbody : MonoBehaviour
         StartCoroutine(Avancar());
     }
 
-    IEnumerator Avancar()
+    public IEnumerator Avancar()
     {
         float dist = distanciaDoAvanco;
 
-        if (!avancarNoEixoX & !avancarNoEixoY & !avancarNoEixoZ)
+        while (dist > 0)
         {
-            print("Selecione ao menos um dos eixos para o qual o objeto avançará");
-        }
-        else
-        {
-            if (avancarNoEixoX)
-            {
-                eixosDeAvanco.x = 1.0f;
-            }
+            rb.MovePosition(transform.position + velocidadeDoAvanco
+                * Time.deltaTime * direcaoDeAvanco);
 
-            if (avancarNoEixoY)
-            {
-                eixosDeAvanco.y = 1.0f;
-            }
-
-            if (avancarNoEixoZ)
-            {
-                eixosDeAvanco.z = 1.0f;
-            }
-
-            while (dist > 0)
-            {
-                rb.MovePosition(transform.position + velocidadeDoAvanco
-                    * Time.deltaTime * eixosDeAvanco);
-
-                dist -= Time.deltaTime * velocidadeDoAvanco;
-                yield return new WaitForSeconds(Time.deltaTime);
-            }
+            dist -= Time.deltaTime * velocidadeDoAvanco;
+            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
-
 }

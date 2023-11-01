@@ -1,62 +1,76 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class Girar180AoContato : MonoBehaviour
 {
     public string tagDoAcionador;
-    public bool girarNoEixoX;
-    public bool girarNoEixoY;
-    public bool girarNoEixoZ;
-    public float velocidadeDeRotacao;
+    public Vector3 eixosRotacao;
+    public float velocidadeRotacao;
     public float tempoParaVoltar;
 
     public bool rotacaoAtivada;
-    private Quaternion rotacaoInicial;
-    private float tempoPassado = 0f;
+    private float angulo;
 
-    private void Start()
+    void Start()
     {
-        rotacaoInicial = transform.rotation;
-        rotacaoAtivada = false
-        girarNoEixoX = true;
-        girarNoEixoY = true;
-        girarNoEixoZ = true;
+        rotacaoAtivada = false;   
     }
 
-    private void Update()
+    public IEnumerator Rotacionar180Graus(float tempoVoltar)
     {
-        if (rotacaoAtivada)
+        angulo = 180;
+
+        while (angulo > 0)
         {
-           Quaternion novaRotacao = rotacaoInicial * Quaternion.Euler(
-                girarNoEixoX ? 180f : 0f,
-                girarNoEixoY ? 180f : 0f,
-                girarNoEixoZ ? 180f : 0f
-            );
-             transform.rotation = Quaternion.Slerp(transform.rotation, novaRotacao, velocidadeDeRotacao * Time.deltaTime);
+            angulo -= velocidadeRotacao * Time.deltaTime;
+            transform.Rotate(eixosRotacao * velocidadeRotacao * Time.deltaTime);
 
-            if (tempoPassado >= tempoParaVoltar && tempoParaVoltar > 0f)
-            {
-                rotacaoAtivada = false;
-                tempoPassado = 0f;
-            }
-            else
-            {
-                tempoPassado += Time.deltaTime;
-            }
+            yield return new WaitForEndOfFrame();
         }
+
+        if (tempoVoltar > 0)
+        {
+            yield return new WaitForSeconds(tempoVoltar);
+            StartCoroutine(Rotacionar180Graus(0));
+        }
+        else if (tempoVoltar == 0)
+            rotacaoAtivada = false;
     }
 
-    IEnumerator Girar(){
-        if (girarNoEixoX || girarNoEixoY || girarNoEixoZ)
+    void OnCollisionEnter(Collision outro)
+    {
+        if (outro.gameObject.CompareTag(tagDoAcionador) && !rotacaoAtivada)
         {
             rotacaoAtivada = true;
+            StartCoroutine(Rotacionar180Graus(tempoParaVoltar));
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider outro)
     {
-        if (collision.gameObject.tag == tagDoAcionador)
+        if (outro.gameObject.CompareTag(tagDoAcionador) && !rotacaoAtivada)
         {
-            StartCoroutine(Girar());
+            rotacaoAtivada = true;
+            StartCoroutine(Rotacionar180Graus(tempoParaVoltar));
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D outro)
+    {
+        if (outro.gameObject.CompareTag(tagDoAcionador) && !rotacaoAtivada)
+        {
+            rotacaoAtivada = true;
+            StartCoroutine(Rotacionar180Graus(tempoParaVoltar));
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D outro)
+    {
+        if (outro.gameObject.CompareTag(tagDoAcionador) && !rotacaoAtivada)
+        {
+            rotacaoAtivada = true;
+            StartCoroutine(Rotacionar180Graus(tempoParaVoltar));
         }
     }
 }

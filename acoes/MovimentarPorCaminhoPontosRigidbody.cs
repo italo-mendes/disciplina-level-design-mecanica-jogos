@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MovimentarPorCaminhoPontosRigidbody : MonoBehaviour
@@ -5,44 +6,53 @@ public class MovimentarPorCaminhoPontosRigidbody : MonoBehaviour
     public Transform[] pontosCaminho;
     public bool reinicia;
 
+    private Velocidade velocidadeComponent;
     private int indicePontoAtual;
     private Rigidbody rb;
+    private Vector3 direcao;
 
     private void Start()
     {
+        if (!TryGetComponent<Velocidade>(out velocidadeComponent))
+            print("Adicione o componente <color=orange>Velocidade</color> ao GameObject.");
+
         rb = GetComponent<Rigidbody>();
-        Velocidade velocidade = new Velocidade();
-        indicePontoAtual = 0;
+        StartCoroutine(Movimenta());
     }
 
-    private void FixedUpdate()
+    IEnumerator Movimenta()
     {
-        if (pontosCaminho.Length == 0)
-            return;
+        indicePontoAtual = 0;
 
-        Vector3 direcao = pontosCaminho[indicePontoAtual].position - transform.position;
-        direcao.Normalize();
-
-        rb.MovePosition(transform.position + direcao * velocidade.GetVelocidade() * Time.fixedDeltaTime);
-
-        if (Vector3.Distance(transform.position, pontosCaminho[indicePontoAtual].position) < 0.3f)
+        while (true)
         {
-            indicePontoAtual++;
+            direcao = pontosCaminho[indicePontoAtual].position - transform.position;
+            direcao.Normalize();
 
-            if (indicePontoAtual >= pontosCaminho.Length)
+            rb.MovePosition(transform.position + direcao
+                * velocidadeComponent.GetVelocidade() * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, pontosCaminho[indicePontoAtual].position) < 0.3f)
             {
-                if (reinicia)
+                indicePontoAtual++;
+
+                if (indicePontoAtual >= pontosCaminho.Length)
                 {
-                    indicePontoAtual = 0;
-                }
-                else
-                {
-                    rb.velocity = Vector3.zero;
-                    return;
+                    if (reinicia)
+                    {
+                        StartCoroutine(Movimenta());
+                    }
+                    else
+                    {
+                        rb.velocity = Vector3.zero;
+                        yield break;
+                    }
                 }
             }
-        }
 
-       transform.LookAt(pontosCaminho[indicePontoAtual]);
+            transform.LookAt(pontosCaminho[indicePontoAtual]);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 }

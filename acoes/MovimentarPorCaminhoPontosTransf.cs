@@ -4,53 +4,54 @@ using UnityEngine;
 
 public class MovimentarPorCaminhoPontosTransf : MonoBehaviour
 {
-    public List<Transform> pontosDoCaminho;
-    public bool reinicia = false;
-    private Velocidade velocidade;
+    public Transform[] pontosCaminho;
+    public bool reinicia;
 
-    private int indiceAtual;
-    private Transform alvoAtual;
+    private Velocidade velocidadeComponent;
+    private int indicePontoAtual;
+    private Vector3 direcao;
 
     void Start()
     {
-        alvoAtual = pontosDoCaminho[indiceAtual];
-        indiceAtual = 0;
-        if (!TryGetComponent<Velocidade>(out velocidade))
+        if (!TryGetComponent<Velocidade>(out velocidadeComponent))
             print("Adicione o componente <color=orange>Velocidade</color> ao GameObject.");
+
+        StartCoroutine(Movimenta());
     }
 
-    void Update()
+    IEnumerator Movimenta()
     {
-        // Verifica se o GameObject alcançou o ponto de destino
-        if (transform.position == alvoAtual.position)
-        {
-            // Incrementa o índice para o próximo ponto no caminho
-            indiceAtual++;
+        indicePontoAtual = 0;
 
-            // Verifica se chegou ao último ponto do caminho
-            if (indiceAtual >= pontosDoCaminho.Count)
+        while (true)
+        {
+            direcao = pontosCaminho[indicePontoAtual].position - transform.position;
+            direcao.Normalize();
+
+            transform.position = Vector3.MoveTowards(transform.position,
+                pontosCaminho[indicePontoAtual].position, velocidadeComponent.GetVelocidade() * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, pontosCaminho[indicePontoAtual].position) < 0.3f)
             {
-                // Verifica se deve reiniciar o movimento
-                if (reinicia)
+                indicePontoAtual++;
+
+                if (indicePontoAtual >= pontosCaminho.Length)
                 {
-                    // Reinicia o índice para o primeiro ponto do caminho
-                    indiceAtual = 0;
-                }
-                else
-                {
-                    // Para o movimento caso não reinicie
-                    return;
+                    if (reinicia)
+                    {
+                        StartCoroutine(Movimenta());
+                    }
+                    else
+                    {
+                        velocidadeComponent.SetVelocidade(0);
+                        yield break;
+                    }
                 }
             }
 
-            // Define o próximo alvo de movimento
-            alvoAtual = pontosDoCaminho[indiceAtual];
+            transform.LookAt(pontosCaminho[indicePontoAtual]);
+
+            yield return new WaitForEndOfFrame();
         }
-
-        // Movimenta o GameObject em direção ao alvo atual
-        transform.position = Vector3.MoveTowards(transform.position, alvoAtual.position, velocidade.GetVelocidade() * Time.deltaTime);
-
-        // Rotaciona o GameObject para olhar na direção do movimento
-        transform.LookAt(alvoAtual);
     }
 }
