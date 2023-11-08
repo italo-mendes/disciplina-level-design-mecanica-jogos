@@ -15,6 +15,7 @@ public class Vida : MonoBehaviour
     public bool semVidaSeDestroi;
     public float tempoAntesDestruicao;
     public UnityEvent eventosAntesDestruicao;
+    public UnityEvent eventosReducaoVida;
 
     public int GetVida()
     {
@@ -46,6 +47,17 @@ public class Vida : MonoBehaviour
             if (semVidaSeDestroi)
                 Destroy(gameObject, tempoAntesDestruicao);
         }
+    }
+
+    public void VariacaoVida(int variacao)
+    {
+        vida += variacao;
+
+        if (vida > vidaMaxima)
+            vida = vidaMaxima;
+
+        if (variacao < 0)
+            eventosReducaoVida.Invoke();
     }
 
     public int GetVidaMaxima()
