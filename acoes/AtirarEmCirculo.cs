@@ -7,217 +7,106 @@ public class AtirarEmCirculo : MonoBehaviour
     public GameObject projetil;
     public int numeroDirecoes;
     public float tempoEntreDisparos;
+    public float tempoMinimoAntesComecarAtirar;
+    public float tempoMaximoAntesComecarAtirar;
     public float raioDosDisparos;
-    public bool x;
-    public bool y;
-    public bool z;
+    public bool eixoX;
+    public bool eixoY;
+    public bool eixoZ;
     private float angulo;
     private Quaternion rotacaoInicial;
+    private Vector3 posInicial;
 
     void Start()
     {
-        angulo =  360/numeroDirecoes;
+        angulo =  360 / numeroDirecoes;
         rotacaoInicial = transform.localRotation;
+        posInicial = transform.position;
 
-        StartCoroutine(Atira());
+        StartCoroutine(AtiraContinuamente());
     }
 
-    IEnumerator Atira()
+    IEnumerator AtiraContinuamente()
     {
+        yield return new WaitForSeconds(
+            Random.Range(tempoMinimoAntesComecarAtirar, tempoMaximoAntesComecarAtirar));
+
         while (true)
         {
-            if(numeroDirecoes % 2 == 0){
-                if (x && y  && z )
-                {
-                    Instantiate(projetil, transform.position, transform.rotation);
-                    for (int i = 1; i <= numeroDirecoes - 1; i++)
-                    {
-                        transform.Rotate(angulo * i, 0.0f, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                    }
-                    transform.localRotation = rotacaoInicial;
-                    Instantiate(projetil, transform.position, transform.rotation);
-                    for (int i = 1; i <= numeroDirecoes - 1; i++)
-                    {
-                        if( i != 1)
-                        {
-                            transform.Rotate(0.0f, angulo * i, 0.0f, Space.Self);
-                            Instantiate(projetil, transform.position, transform.rotation);
-                        }
-                        else if(i != numeroDirecoes-1){
-                            transform.Rotate(0.0f, angulo * i, 0.0f, Space.Self);
-                            Instantiate(projetil, transform.position, transform.rotation);
-                        }
-                    }
-                    transform.localRotation = rotacaoInicial;
-                }
-                else if (x && y )
-                {
-                    Instantiate(projetil, transform.position, transform.rotation);
-                    for (int i = 1; i <= numeroDirecoes - 1; i++)
-                    {
-                        transform.Rotate(angulo * i, 0.0f, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                    }
-                    transform.localRotation = rotacaoInicial;
-                    Instantiate(projetil, transform.position, transform.rotation);
-                    for (int i = 1; i <= numeroDirecoes - 1; i++)
-                    {
-                        if (i != 1)
-                        {
-                            transform.Rotate(0.0f, angulo * i, 0.0f, Space.Self);
-                            Instantiate(projetil, transform.position, transform.rotation);
-                        }
-                        else if (i != numeroDirecoes - 1)
-                        {
-                            transform.Rotate(0.0f, angulo * i, 0.0f, Space.Self);
-                            Instantiate(projetil, transform.position, transform.rotation);
-                        }
-                    }
-                    transform.localRotation = rotacaoInicial;
-                }
-                else if (x && z)
-                {
-                    Instantiate(projetil, transform.position, transform.rotation);
-                    for (int i = 1; i <= numeroDirecoes - 1; i++)
-                    {
-                        transform.Rotate(angulo * i, 0.0f, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                    }
-                    transform.localRotation = rotacaoInicial;
-                    Instantiate(projetil, transform.position, transform.rotation);
-                    for (int i = 1; i <= numeroDirecoes - 1; i++)
-                    {
-                        if (i != 1)
-                        {
-                            transform.Rotate(0.0f, angulo * i, 0.0f, Space.Self);
-                            Instantiate(projetil, transform.position, transform.rotation);
-                        }
-                        else if (i != numeroDirecoes - 1)
-                        {
-                            transform.Rotate(0.0f, angulo * i, 0.0f, Space.Self);
-                            Instantiate(projetil, transform.position, transform.rotation);
-                        }
-                    }
-                    transform.localRotation = rotacaoInicial;
-                }
-                else if (x)
-                {
-                    for (int i = 0; i < numeroDirecoes; i++)
-                    {
-                        transform.Rotate(angulo * i, 0.0f, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                    }
-                }
-                else if (y)
-                {
-                    for (int i = 0; i < numeroDirecoes; i++)
-                    {
-                        transform.Rotate(0.0f, angulo * i, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                    }
-                }
-                else if (z)
-                {
-                    for (int i = 0; i < numeroDirecoes; i++)
-                    {
-                        transform.Rotate(0.0f, 0.0f, angulo * i, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                    }
-                }
-            }
-            else
-            {
-                if(x && y && z)
-                {
-                    for (int i = 0; i < numeroDirecoes; i++)
-                    {
-                        transform.Rotate(angulo * i, 0.0f, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                    }
-                    for (int i = 0; i < numeroDirecoes; i++)
-                    {
-                        if(i != 0 || i != numeroDirecoes )
-                        {
-                        transform.Rotate(0.0f, angulo * i, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                        }
-                    }
-                }
-                if(x && y)
-                {
-                    for (int i = 0; i < numeroDirecoes; i++)
-                    {
-                        transform.Rotate(angulo * i, 0.0f, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                    }
-                    for (int i = 0; i < numeroDirecoes; i++)
-                    {
-                        if(i != 0 || i != numeroDirecoes )
-                        {
-                        transform.Rotate(0.0f, angulo * i, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                        }
-                    }
-                }
-                if(x && z)
-                {
-                    for (int i = 0; i < numeroDirecoes; i++)
-                    {
-                        transform.Rotate(angulo * i, 0.0f, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                    }
-                    for (int i = 0; i < numeroDirecoes; i++)
-                    {
-                        if(i != 0 || i != numeroDirecoes )
-                        {
-                        transform.Rotate(0.0f, angulo * i, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                        }
-                    }
-                }
-                else if(x)
-                {
-                    for (int i = 0; i < numeroDirecoes ; i++)
-                    {
-                        transform.Rotate(angulo * i, 0.0f, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                    }
-                    
-                }
-                else if(y)
-                {
-                    for (int i = 0; i < numeroDirecoes ; i++)
-                    {
-                        transform.Rotate(0.0f, angulo * i, 0.0f, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                    }
-                    
-                }
-                else if(z)
-                {
-                    for (int i = 0; i < numeroDirecoes ; i++)
-                    {
-                        transform.Rotate(0.0f, 0.0f, angulo * i, Space.Self);
-                        Instantiate(projetil, transform.position, transform.rotation);
-                        transform.localRotation = rotacaoInicial;
-                    }
-                    
-                }
-            }
+            Atira();
 
             yield return new WaitForSeconds(tempoEntreDisparos);
         }
+    }
+
+    public void Atira()
+    {
+        if (eixoX)
+            for (int i = 0; i < numeroDirecoes; i++)
+            {
+                transform.position = posInicial;
+                transform.Rotate(1.0f * angulo, 0.0f, 0.0f, Space.Self);
+                transform.Translate(0.0f, raioDosDisparos, 0.0f);
+                Instantiate(projetil, transform.position, transform.rotation);
+            }
+
+        transform.localRotation = rotacaoInicial;
+
+        if (eixoY)
+            for (int i = 0; i < numeroDirecoes; i++)
+            {
+                transform.position = posInicial;
+                transform.Rotate(0.0f, 1.0f * angulo, 0.0f, Space.Self);
+                transform.Translate(raioDosDisparos, 0.0f , 0.0f);
+
+                if (eixoX)
+                    if (transform.localRotation.eulerAngles.y == 90 ||
+                        transform.localRotation.eulerAngles.y == 270)
+                        continue;
+
+                Instantiate(projetil, transform.position, transform.rotation);
+            }
+
+        transform.localRotation = rotacaoInicial;
+
+        if (eixoZ)
+            for (int i = 0; i < numeroDirecoes; i++)
+            {
+                transform.position = posInicial;
+                transform.Rotate(0.0f, 0.0f, 1.0F * angulo, Space.Self);
+                transform.Translate(0.0f, raioDosDisparos, 0.0f);
+
+                if (eixoX)
+                    if (transform.localRotation.eulerAngles.z == 0 ||
+                        transform.localRotation.eulerAngles.z == 180)
+                        continue;
+
+                if (eixoY)
+                    if (transform.localRotation.eulerAngles.z == 90 ||
+                        transform.localRotation.eulerAngles.z == 270)
+                        continue;
+
+                Instantiate(projetil, transform.position, transform.rotation);
+            }
+
+        transform.localRotation = rotacaoInicial;
+    }
+
+    public void SetProjetil(GameObject proj)
+    {
+        projetil = proj;
+    }
+
+    public void SetNumeroDirecoes(int numDir)
+    {
+        numeroDirecoes = numDir;
+    }
+
+    public void VariacaoNumeroDirecoes(int variacao)
+    {
+        numeroDirecoes += variacao;
+
+        if (numeroDirecoes <= 0)
+            numeroDirecoes = 1;
     }
 }
