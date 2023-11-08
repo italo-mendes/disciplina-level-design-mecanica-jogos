@@ -12,6 +12,7 @@ public class MovimentarComInputEixoXTransf : MonoBehaviour
     private SpriteRenderer sr;
     private Animator animator;
     public string nomeParametroVelocidade;
+    private PlayerInput pi;
 
     void Start()
     {
@@ -20,6 +21,10 @@ public class MovimentarComInputEixoXTransf : MonoBehaviour
 
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        pi = GetComponent<PlayerInput>();
+
+        if (pi == null)
+            StartCoroutine(ObtemEntradaEixos());
     }
 
     public void ObtemEntrada(InputAction.CallbackContext contexto)
@@ -40,5 +45,25 @@ public class MovimentarComInputEixoXTransf : MonoBehaviour
     {
         transform.Translate(velocidadeComponent.GetVelocidade()
             * entrada.x * Time.deltaTime * transform.right);
+    }
+
+    IEnumerator ObtemEntradaEixos()
+    {
+        while (true)
+        {
+            entrada.x = Input.GetAxisRaw("Horizontal");
+            entrada.y = Input.GetAxisRaw("Vertical");
+
+            if (animator != null)
+                animator.SetFloat(nomeParametroVelocidade, Mathf.Abs(entrada.x));
+
+            if (sr != null && viraSprite)
+                if (entrada.x < 0)
+                    sr.flipX = true;
+                else if (entrada.x > 0)
+                    sr.flipX = false;
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
