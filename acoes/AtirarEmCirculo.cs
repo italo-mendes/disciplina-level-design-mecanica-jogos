@@ -19,7 +19,7 @@ public class AtirarEmCirculo : MonoBehaviour
 
     void Start()
     {
-        angulo =  360 / numeroDirecoes;
+        AtualizaAngulos();
         rotacaoInicial = transform.localRotation;
         posInicial = transform.position;
 
@@ -92,6 +92,11 @@ public class AtirarEmCirculo : MonoBehaviour
         transform.localRotation = rotacaoInicial;
     }
 
+    public void AtualizaAngulos()
+    {
+        angulo = 360 / numeroDirecoes;
+    }
+
     public void SetProjetil(GameObject proj)
     {
         projetil = proj;
@@ -100,6 +105,7 @@ public class AtirarEmCirculo : MonoBehaviour
     public void SetNumeroDirecoes(int numDir)
     {
         numeroDirecoes = numDir;
+        AtualizaAngulos();
     }
 
     public void VariacaoNumeroDirecoes(int variacao)
@@ -108,5 +114,7 @@ public class AtirarEmCirculo : MonoBehaviour
 
         if (numeroDirecoes <= 0)
             numeroDirecoes = 1;
+
+        AtualizaAngulos();
     }
 }

@@ -14,7 +14,7 @@ public class AtirarEmArco : MonoBehaviour
 
     void Start()
     {
-        angulo = 180 / numeroDirecoes;
+        AtualizaAngulos();
         rotacaoInicial = transform.localRotation;
         
         StartCoroutine(AtiraContinuamente());
@@ -50,6 +50,11 @@ public class AtirarEmArco : MonoBehaviour
         transform.localRotation = rotacaoInicial;
     }
 
+    public void AtualizaAngulos()
+    {
+        angulo = 180 / numeroDirecoes;
+    }
+
     public void SetProjetil(GameObject proj)
     {
         projetil = proj;
@@ -58,6 +63,7 @@ public class AtirarEmArco : MonoBehaviour
     public void SetNumeroDirecoes(int numDir)
     {
         numeroDirecoes = numDir;
+        AtualizaAngulos();
     }
 
     public void VariacaoNumeroDirecoes(int variacao)
@@ -66,5 +72,7 @@ public class AtirarEmArco : MonoBehaviour
 
         if (numeroDirecoes <= 0)
             numeroDirecoes = 1;
+
+        AtualizaAngulos();
     }
 }

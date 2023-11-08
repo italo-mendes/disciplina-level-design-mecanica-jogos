@@ -16,8 +16,7 @@ public class AtirarEmArcoConcentrado : MonoBehaviour
 
     void Start()
     {
-        anguloTotal = anguloEntreDirecoes * (numeroDirecoes - 1);
-        angulo = anguloTotal / numeroDirecoes;
+        AtualizaAngulos();
         rotacaoInicial = transform.localRotation;
 
         StartCoroutine(AtiraContinuamente());
@@ -50,6 +49,12 @@ public class AtirarEmArcoConcentrado : MonoBehaviour
         transform.localRotation = rotacaoInicial;
     }
 
+    public void AtualizaAngulos()
+    {
+        anguloTotal = anguloEntreDirecoes * (numeroDirecoes - 1);
+        angulo = anguloTotal / numeroDirecoes;
+    }
+
     public void SetProjetil(GameObject proj)
     {
         projetil = proj;
@@ -58,6 +63,7 @@ public class AtirarEmArcoConcentrado : MonoBehaviour
     public void SetNumeroDirecoes(int numDir)
     {
         numeroDirecoes = numDir;
+        AtualizaAngulos();
     }
 
     public void VariacaoNumeroDirecoes(int variacao)
@@ -66,11 +72,14 @@ public class AtirarEmArcoConcentrado : MonoBehaviour
 
         if (numeroDirecoes <= 0)
             numeroDirecoes = 1;
+
+        AtualizaAngulos();
     }
 
     public void SetAnguloEntreDirecoes(int angEntreDir)
     {
         anguloEntreDirecoes = angEntreDir;
+        AtualizaAngulos();
     }
 
     public void VariacaoAnguloEntreDirecoes(int variacao)
@@ -79,5 +88,7 @@ public class AtirarEmArcoConcentrado : MonoBehaviour
 
         if (anguloEntreDirecoes <= 0)
             anguloEntreDirecoes = 1;
+
+        AtualizaAngulos();
     }
 }

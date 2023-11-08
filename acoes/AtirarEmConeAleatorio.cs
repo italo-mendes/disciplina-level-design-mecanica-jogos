@@ -16,8 +16,8 @@ public class AtirarEmConeAleatorio : MonoBehaviour
 
     void Start()
     {
+        AtualizaAngulos();
         rotacaoInicial = transform.localRotation;
-        metadeAnguloDoCone = anguloDoCone / 2;
 
         StartCoroutine(AtiraContinuamente());
     }
@@ -45,6 +45,11 @@ public class AtirarEmConeAleatorio : MonoBehaviour
         transform.localRotation = rotacaoInicial;
     }
 
+    public void AtualizaAngulos()
+    {
+        metadeAnguloDoCone = anguloDoCone / 2;
+    }
+
     public void SetProjetil(GameObject proj)
     {
         projetil = proj;
@@ -53,6 +58,7 @@ public class AtirarEmConeAleatorio : MonoBehaviour
     public void SetAnguloDoCone(float angulo)
     {
         anguloDoCone = angulo;
+        AtualizaAngulos();
     }
 
     public void VariacaoAnguloDoCone(float variacao)
@@ -61,5 +67,7 @@ public class AtirarEmConeAleatorio : MonoBehaviour
 
         if (anguloDoCone <= 0.0f)
             anguloDoCone = 1.0f;
+
+        AtualizaAngulos();
     }
 }
