@@ -58,6 +58,9 @@ public class MovimentarComInputEixoXeYRotacaoRigidbody2D : MonoBehaviour
             entrada.x = Input.GetAxisRaw("Horizontal");
             entrada.y = Input.GetAxisRaw("Vertical");
 
+            if (animator != null)
+                animator.SetFloat(nomeParametroVelocidade, Mathf.Abs(entrada.x));
+
             yield return new WaitForEndOfFrame();
         }
     }

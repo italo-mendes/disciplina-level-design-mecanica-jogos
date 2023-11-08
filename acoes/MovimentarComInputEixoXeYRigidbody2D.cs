@@ -65,6 +65,15 @@ public class MovimentarComInputEixoXeYRigidbody2D : MonoBehaviour
             entrada.x = Input.GetAxisRaw("Horizontal");
             entrada.y = Input.GetAxisRaw("Vertical");
 
+            if (animator != null)
+                animator.SetFloat(nomeParametroVelocidade, Mathf.Abs(entrada.x));
+
+            if (sr != null && viraSprite)
+                if (entrada.x < 0)
+                    sr.flipX = true;
+                else if (entrada.x > 0)
+                    sr.flipX = false;
+
             yield return new WaitForEndOfFrame();
         }
     }
