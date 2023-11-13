@@ -6,7 +6,7 @@ Componentes exemplos enviados pelo professor:
 
 ### Duplas e seus componentes
 
-Diego & Adley: 6, 22, 20, 40, 41, 42
+[//]: # (Diego & Adley: 6, 22, 20, 40, 41, 42)
 
 André & Matheus: ✔7, ✔18, ✔19, ✔35, ✔36
 
@@ -14,7 +14,9 @@ Raylander: ✔9, ✔3, ✔12, ✔13, ✔14
 
 Jean & Henrique: ✔5, ✔16, ✔29, ✔30, ✔31
 
-Victor & Lucas: ✔8, ✔10, 21, 38, 39
+Victor & Lucas: ✔8, ✔10
+
+[//]: # (, 21, 38, 39)
 
 Gabriel & Leticia: ✔15, ✔17, ✔46, ✔47,✔48
 
