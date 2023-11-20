@@ -9,6 +9,7 @@ using UnityEngine.InputSystem.Utilities;
 public class AdicionaJogadoresComJoystick : MonoBehaviour
 {
     public GameObject cam;
+    public Vector3 posicaoReferenciaCamera;
     public GameObject jogador;
     public bool primeiroJogadorNoTeclado;
     public string controlSchemeDoJoystick;
@@ -33,10 +34,12 @@ public class AdicionaJogadoresComJoystick : MonoBehaviour
                     jogadores.Add(goTemp);
                 }
 
-        cam.transform.position = new Vector3(10.0f * 0, 7.5f, -17.0f);
+        cam.transform.position = posicaoReferenciaCamera; // new Vector3(10.0f * 0, 7.5f, -17.0f);
 
         qualquerBotaoEventListener = InputSystem.onAnyButtonPress.Call(OnButtonPressed);
-        qualquerBotaoTecladoEventListener = InputSystem.onAnyButtonPress.Call(OnButtonPressedTeclado);
+
+        if (!primeiroJogadorNoTeclado)
+            qualquerBotaoTecladoEventListener = InputSystem.onAnyButtonPress.Call(OnButtonPressedTeclado);
     }
 
     void OnButtonPressed(InputControl inpCtrl)
@@ -69,19 +72,20 @@ public class AdicionaJogadoresComJoystick : MonoBehaviour
         }
     }
 
-    public void CriaTabuleiro(int joystickId, string controlScheme)
+    public void CriaTabuleiro(int tecladoId, string controlScheme)
     {
         GameObject goTemp;
 
         int i = jogadores.Count;
         int j = 0;
 
-        goTemp = Instantiate(jogador, new Vector3(10.0f * i, 20.0f * j, 0.0f), transform.rotation);
+        goTemp = Instantiate(jogador, new Vector3(2.0f * i, 10.0f * j, 0.0f), transform.rotation);
         jogadores.Add(goTemp);
 
-        PlayerInput.all[i].SwitchCurrentControlScheme(controlScheme, InputSystem.GetDeviceById(joystickId));
+        PlayerInput.all[i].SwitchCurrentControlScheme(controlScheme, InputSystem.GetDeviceById(tecladoId));
 
-        cam.transform.position = new Vector3((10.0f * i) / 2, 7.5f, -17.0f);
+        cam.transform.position = new Vector3(
+            (posicaoReferenciaCamera.x * i) / 2, posicaoReferenciaCamera.y, posicaoReferenciaCamera.z);
     }
 
     void OnDisable()
