@@ -5,8 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PularRigidbody2D : MonoBehaviour
 {
-    [SerializeField]
-    private float forcaDoPulo;
+    public float forcaDoPulo;
+    public int pulos;
+    public string tagResetaPulos;
     [SerializeField]
     private bool temPuloDuplo;
     [SerializeField]
@@ -15,13 +16,14 @@ public class PularRigidbody2D : MonoBehaviour
     private bool podeDirecionarDuranteOPulo;
 
     private Rigidbody2D rb2D;
-    private int pulos;
+    private int pulosValorInicial;
     private RigidbodyConstraints constraintsOriginais;
     private Quaternion rotacaoOriginal;
 
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        pulosValorInicial = pulos;
     }
 
     public void ObtemEntrada(InputAction.CallbackContext contexto)
@@ -32,24 +34,17 @@ public class PularRigidbody2D : MonoBehaviour
 
     public void Pular()
     {
-        if (forcaDoPulo == 0.0f)
+        if (pulos > 0)
         {
-            return;
-        }
-
-        if (temPuloDuplo && pulos < 2 || !temPuloDuplo && pulos == 0)
-        {
-
-            pulos++;
-            rb2D.AddForce(forcaDoPulo * rb2D.transform.up * Time.deltaTime, ForceMode2D.Impulse);
+            pulos--;
+            rb2D.AddForce(forcaDoPulo * rb2D.transform.up, ForceMode2D.Impulse);
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision outro)
     {
-        if (pulos != 0)
-        {
-            pulos = 0;
-        }
+        if (outro.gameObject.CompareTag(tagResetaPulos))
+            pulos = pulosValorInicial;
+
     }
 }
