@@ -8,7 +8,7 @@ public class Vida : MonoBehaviour
     [SerializeField]
     private int vida;
 
-    // se VidaMaxima for zero, ent√£o o gameObject n√£o ter√° vidaMaxima
+    // se VidaMaxima for zero, ent„o o gameObject n„o ter· vidaMaxima
     [SerializeField]
     private int vidaMaxima;
 
