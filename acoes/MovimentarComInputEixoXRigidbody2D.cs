@@ -44,14 +44,8 @@ public class MovimentarComInputEixoXRigidbody2D : MonoBehaviour
 
     void FixedUpdate()
     {
-        //rb2D.MovePosition(transform.position + velocidadeComponent.GetVelocidade()
-        //    * entrada.x * Time.fixedDeltaTime * transform.right);
-
-        //rb2D.AddForce(velocidadeComponent.GetVelocidade()
-        //    * entrada.x * Time.fixedDeltaTime * transform.right);
-
-        rb2D.velocity = new Vector2(velocidadeComponent.GetVelocidade()
-            * entrada.x * Time.fixedDeltaTime, rb2D.velocity.y);
+        rb2D.MovePosition(rb2D.position + velocidadeComponent.GetVelocidade()
+            * entrada.x * Time.fixedDeltaTime * transform.right);
     }
 
     IEnumerator ObtemEntradaEixos()
