@@ -8,12 +8,13 @@ public class Vida : MonoBehaviour
     [SerializeField]
     private int vida;
 
-    // se VidaMaxima for zero, ent„o o gameObject n„o ter· vidaMaxima
+    // se VidaMaxima for zero, ent√£o o gameObject n√£o ter√° vidaMaxima
     [SerializeField]
     private int vidaMaxima;
 
     public bool semVidaSeDestroi;
     public float tempoAntesDestruicao;
+    public int pontuacao;
     public UnityEvent eventosAntesDestruicao;
     public UnityEvent eventosReducaoVida;
 
@@ -43,6 +44,9 @@ public class Vida : MonoBehaviour
         if (vida <= 0)
         {
             eventosAntesDestruicao.Invoke();
+
+            if (pontuacao > 0 && GameManager.gm != null)
+                GameManager.gm.GetComponent<GameManager>().VariacaoPontuacao(pontuacao);
 
             if (semVidaSeDestroi)
                 Destroy(gameObject, tempoAntesDestruicao);
