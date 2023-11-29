@@ -22,7 +22,6 @@ public class AtirarEmRetangulo : MonoBehaviour
 
     void Start()
     {
-        posInicial = transform.position;
         deslocamento = Vector3.zero;
 
         if (eixoX)
@@ -52,6 +51,7 @@ public class AtirarEmRetangulo : MonoBehaviour
 
     public void Atira()
     {
+        posInicial = transform.position;
         metadeDaDistancia = distanciaLinhaDeTiros / 2;
 
         if (quantidadeLinhas % 2 == 0)
