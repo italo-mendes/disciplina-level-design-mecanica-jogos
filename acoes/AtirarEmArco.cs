@@ -11,15 +11,17 @@ public class AtirarEmArco : MonoBehaviour
     public float tempoMaximoAntesComecarAtirar;
     private int angulo;
     private Quaternion rotacaoInicial;
+    private IEnumerator coroutine;
 
-    void Start()
+    void OnEnable()
     {
         AtualizaAngulos();
         rotacaoInicial = transform.localRotation;
-        
-        StartCoroutine(AtiraContinuamente());
+
+        coroutine = AtiraContinuamente();
+        StartCoroutine(coroutine);
     }
-    
+
     IEnumerator AtiraContinuamente()
     {
         yield return new WaitForSeconds(
@@ -74,5 +76,10 @@ public class AtirarEmArco : MonoBehaviour
             numeroDirecoes = 1;
 
         AtualizaAngulos();
+    }
+
+    void OnDisable()
+    {
+        StopCoroutine(coroutine);
     }
 }

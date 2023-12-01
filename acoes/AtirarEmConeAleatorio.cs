@@ -13,13 +13,15 @@ public class AtirarEmConeAleatorio : MonoBehaviour
     private float aleatoriedadeNaDirecao;
     private Quaternion rotacaoInicial;
     private float metadeAnguloDoCone;
+    private IEnumerator coroutine;
 
-    void Start()
+    void OnEnable()
     {
         AtualizaAngulos();
         rotacaoInicial = transform.localRotation;
 
-        StartCoroutine(AtiraContinuamente());
+        coroutine = AtiraContinuamente();
+        StartCoroutine(coroutine);
     }
 
     IEnumerator AtiraContinuamente()
@@ -69,5 +71,10 @@ public class AtirarEmConeAleatorio : MonoBehaviour
             anguloDoCone = 1.0f;
 
         AtualizaAngulos();
+    }
+
+    void OnDisable()
+    {
+        StopCoroutine(coroutine);
     }
 }

@@ -9,21 +9,24 @@ public class AtirarEmCirculo : MonoBehaviour
     public float tempoEntreDisparos;
     public float tempoMinimoAntesComecarAtirar;
     public float tempoMaximoAntesComecarAtirar;
-    public float raioDosDisparos;
+    //public float raioDosDisparos;
     public bool eixoX;
     public bool eixoY;
     public bool eixoZ;
     private float angulo;
     private Quaternion rotacaoInicial;
     private Vector3 posInicial;
+    private Vector3 posPadrao;
+    private IEnumerator coroutine;
 
-    void Start()
+    void OnEnable()
     {
         AtualizaAngulos();
         rotacaoInicial = transform.localRotation;
-        posInicial = transform.position;
+        posPadrao = transform.localPosition;
 
-        StartCoroutine(AtiraContinuamente());
+        coroutine = AtiraContinuamente();
+        StartCoroutine(coroutine);
     }
 
     IEnumerator AtiraContinuamente()
@@ -41,12 +44,14 @@ public class AtirarEmCirculo : MonoBehaviour
 
     public void Atira()
     {
+        posInicial = transform.position;
+
         if (eixoX)
             for (int i = 0; i < numeroDirecoes; i++)
             {
                 transform.position = posInicial;
                 transform.Rotate(1.0f * angulo, 0.0f, 0.0f, Space.Self);
-                transform.Translate(0.0f, raioDosDisparos, 0.0f);
+                //transform.Translate(0.0f, raioDosDisparos, 0.0f);
                 Instantiate(projetil, transform.position, transform.rotation);
             }
 
@@ -57,7 +62,7 @@ public class AtirarEmCirculo : MonoBehaviour
             {
                 transform.position = posInicial;
                 transform.Rotate(0.0f, 1.0f * angulo, 0.0f, Space.Self);
-                transform.Translate(raioDosDisparos, 0.0f , 0.0f);
+                //transform.Translate(raioDosDisparos, 0.0f , 0.0f);
 
                 if (eixoX)
                     if (transform.localRotation.eulerAngles.y == 90 ||
@@ -74,7 +79,7 @@ public class AtirarEmCirculo : MonoBehaviour
             {
                 transform.position = posInicial;
                 transform.Rotate(0.0f, 0.0f, 1.0F * angulo, Space.Self);
-                transform.Translate(0.0f, raioDosDisparos, 0.0f);
+                //transform.Translate(0.0f, raioDosDisparos, 0.0f);
 
                 if (eixoX)
                     if (transform.localRotation.eulerAngles.z == 0 ||
@@ -116,5 +121,12 @@ public class AtirarEmCirculo : MonoBehaviour
             numeroDirecoes = 1;
 
         AtualizaAngulos();
+    }
+
+    void OnDisable()
+    {
+        transform.localPosition = posPadrao;
+
+        StopCoroutine(coroutine);
     }
 }

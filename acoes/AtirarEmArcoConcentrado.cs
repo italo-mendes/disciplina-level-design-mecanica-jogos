@@ -13,13 +13,15 @@ public class AtirarEmArcoConcentrado : MonoBehaviour
     private float angulo;
     private float anguloTotal;
     private Quaternion rotacaoInicial;
+    private IEnumerator coroutine;
 
-    void Start()
+    void OnEnable()
     {
         AtualizaAngulos();
         rotacaoInicial = transform.localRotation;
 
-        StartCoroutine(AtiraContinuamente());
+        coroutine = AtiraContinuamente();
+        StartCoroutine(coroutine);
     }
 
     IEnumerator AtiraContinuamente()
@@ -90,5 +92,10 @@ public class AtirarEmArcoConcentrado : MonoBehaviour
             anguloEntreDirecoes = 1;
 
         AtualizaAngulos();
+    }
+
+    void OnDisable()
+    {
+        StopCoroutine(coroutine);
     }
 }

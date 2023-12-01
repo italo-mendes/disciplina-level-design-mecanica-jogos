@@ -19,6 +19,7 @@ public class AtirarEmRetangulo : MonoBehaviour
     private Vector3 deslocamentoInicial;
     private Vector3 deslocamento;
     private Vector3 posInicial;
+    private IEnumerator coroutine;
 
     void Start()
     {
@@ -33,7 +34,8 @@ public class AtirarEmRetangulo : MonoBehaviour
         if (eixoZ)
             deslocamento.z = 1.0f;
 
-        StartCoroutine(AtiraContinuamente());
+        coroutine = AtiraContinuamente();
+        StartCoroutine(coroutine);
     }
 
     IEnumerator AtiraContinuamente()
@@ -109,5 +111,10 @@ public class AtirarEmRetangulo : MonoBehaviour
 
         if (distanciaLinhaDeTiros <= 0)
             distanciaLinhaDeTiros = 1;
+    }
+
+    void OnDisable()
+    {
+        StopCoroutine(coroutine);
     }
 }
